@@ -1,29 +1,23 @@
-import './App.css';
-import axios from "axios";
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import "./App.css";
+import React from "react";
+import routes from "./routes";
+import { BrowserRouter, Route } from "react-router-dom";
 
 function App() {
 
 
-  const [users, setUsers] = useState();
 
-  useEffect(() => {
-    getDetails();
-  }, []);
-
-
-  const  getDetails =()=>{
-    axios.get("/api").then((res) => {
-      setUsers(res?.data.data);
-    }); 
-  }
-const  get = users[0]
 
   return (
-    <div className="App">
-     <span> {get?.name}</span>
-    </div>
+    <>
+      <div className="wrapper">
+        <BrowserRouter>
+          {routes.map(({ component, path }, index) => (
+            <Route key={index} path={path} exact render={component} />
+          ))}
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 
