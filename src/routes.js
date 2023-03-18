@@ -1,18 +1,12 @@
 import React from "react";
-import SamplePage from "./sample";
+import LoginPage from "./views/loginPage";
 
 const routes = [
     {
+        name: "Login",
         path: "/",
-        component: ()=><div>Home Page</div>,
-        title: "home",
+        component: LoginPage,
     },
-    {
-        path: "/sample",
-        component: SamplePage,
-        title: "sample",
-    },
-  
 ];
 
 
