@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import routes from "./routes";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
 
@@ -12,10 +12,13 @@ function App() {
     <>
       <div className="wrapper">
         <BrowserRouter>
+        <Switch>
           {routes.map(({ component, path }, index) => (
             <Route key={index} path={path} exact render={component} />
           ))}
+          </Switch>
         </BrowserRouter>
+       
       </div>
     </>
   );
