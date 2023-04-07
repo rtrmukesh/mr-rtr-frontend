@@ -2,6 +2,7 @@ import "./App.css";
 import React from "react";
 import routes from "./routes";
 import { BrowserRouter, Route } from "react-router-dom";
+import LoginPage from "./views/loginPage";
 
 function App() {
 
@@ -11,11 +12,12 @@ function App() {
   return (
     <>
       <div className="wrapper">
-        <BrowserRouter>
+        {/* <BrowserRouter>
           {routes.map(({ component, path }, index) => (
             <Route key={index} path={path} exact render={component} />
           ))}
-        </BrowserRouter>
+        </BrowserRouter> */}
+        <LoginPage/>
       </div>
     </>
   );
