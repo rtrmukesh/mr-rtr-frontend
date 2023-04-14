@@ -12,12 +12,11 @@ function App() {
   return (
     <>
       <div className="wrapper">
-        {/* <BrowserRouter>
+        <BrowserRouter>
           {routes.map(({ component, path }, index) => (
             <Route key={index} path={path} exact render={component} />
           ))}
-        </BrowserRouter> */}
-        <LoginPage/>
+        </BrowserRouter>
       </div>
     </>
   );
