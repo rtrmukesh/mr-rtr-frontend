@@ -3,7 +3,6 @@ import {
   ProSidebar,
   Menu,
   MenuItem,
-  SubMenu,
   SidebarHeader,
   SidebarFooter,
   SidebarContent
@@ -14,11 +13,7 @@ import {
   FaAngleDoubleRight,
   FaTachometerAlt,
   FaGem,
-  FaList,
-  FaRegLaughWink,
-  FaHeart
 } from 'react-icons/fa';
-// import sidebarBg from '../assets/bg1.jpg';
 
 const Sidebar = ({
   image,

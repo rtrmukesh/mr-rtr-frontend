@@ -1,38 +1,10 @@
-// import "./App.css";
-// import React from "react";
 import routes from "./routes";
-// import { BrowserRouter, Route } from "react-router-dom";
-// import LoginPage from "./views/loginPage";
-
-// function App() {
-
-
-
-
-//   return (
-//     <>
-//       <div className="wrapper">
-//         <BrowserRouter>
-//           {routes.map(({ component, path }, index) => (
-//             <Route key={index} path={path} exact render={component} />
-//           ))}
-//         </BrowserRouter>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default App;
-
-
 import { useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
-
 import './views/styles.scss';
 import Sidebar from './views/sidBar';
-import ReactTable from './views/Table';
-import Components from './views/terox';
+
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -59,9 +31,6 @@ function App() {
           <FaBars />
         </div>
         <Switch>
-          {/* <Route path="/table"  component={ReactTable} />
-          <Route path="/components" component={Components} /> */}
-          {/* <Redirect to="/not-found" /> */}
           {routes.map(({ component, path }, index) => (
             <Route key={index} path={path} exact render={component} />
           ))}
