@@ -1,38 +1,13 @@
-// import "./App.css";
-// import React from "react";
-import routes from "./routes";
-// import { BrowserRouter, Route } from "react-router-dom";
-// import LoginPage from "./views/loginPage";
-
-// function App() {
-
-
-
-
-//   return (
-//     <>
-//       <div className="wrapper">
-//         <BrowserRouter>
-//           {routes.map(({ component, path }, index) => (
-//             <Route key={index} path={path} exact render={component} />
-//           ))}
-//         </BrowserRouter>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default App;
-
-
+import React from "react";
+import routes from './routes';
 import { useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
+import { Route, Switch } from 'react-router-dom';
 
+import "../node_modules/draft-js/dist/Draft.css";
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Sidebar from './views/sidBar/sidBar';
 import './views/styles.scss';
-import Sidebar from './views/sidBar';
-import ReactTable from './views/Table';
-import Components from './views/terox';
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -55,16 +30,25 @@ function App() {
         handleCollapsedChange={handleCollapsedChange}
       />
       <main>
-        <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+        <div className='btn-toggle' onClick={() => handleToggleSidebar(true)}>
           <FaBars />
         </div>
         <Switch>
-          {/* <Route path="/table"  component={ReactTable} />
-          <Route path="/components" component={Components} /> */}
-          {/* <Redirect to="/not-found" /> */}
-          {routes.map(({ component, path }, index) => (
-            <Route key={index} path={path} exact render={component} />
-          ))}
+          {routes.map((route, idx) => {
+            return route.component ? (
+              <Route
+                key={idx}
+                path={route.path}
+                exact={route.exact}
+                name={route.name}
+                render={(props) => (
+                  <route.component
+                    {...props}
+                  />
+                )}
+              />
+            ) : null;
+          })}
         </Switch>
       </main>
     </div>
@@ -72,4 +56,3 @@ function App() {
 }
 
 export default App;
-
