@@ -1,24 +1,19 @@
-import { Link, NavLink } from 'react-router-dom';
 import {
-  ProSidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent
-} from 'react-pro-sidebar';
-import {
-  FaUser,
   FaAngleDoubleLeft,
   FaAngleDoubleRight,
-  FaTachometerAlt,
   FaGem,
-  FaList,
-  FaRegLaughWink,
-  FaHeart
+  FaTachometerAlt,
+  FaUser
 } from 'react-icons/fa';
-// import sidebarBg from '../assets/bg1.jpg';
+import {
+  Menu,
+  MenuItem,
+  ProSidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader
+} from 'react-pro-sidebar';
+import { Link, NavLink } from 'react-router-dom';
 
 const Sidebar = ({
   image,
