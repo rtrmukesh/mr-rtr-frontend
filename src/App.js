@@ -1,13 +1,10 @@
-import React from "react";
-import routes from './routes';
-import { useState } from 'react';
-import { FaBars } from 'react-icons/fa';
-import { Route, Switch } from 'react-router-dom';
+import React, { useState } from "react";
+import { Route, Router, Switch } from 'react-router-dom';
 
 import "../node_modules/draft-js/dist/Draft.css";
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import Sidebar from './views/sidBar/sidBar';
 import './views/styles.scss';
+import SignUp from "./views/signUp";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -22,36 +19,40 @@ function App() {
   };
 
   return (
-    <div className={`app ${toggled ? 'toggled' : ''}`}>
-      <Sidebar
-        collapsed={collapsed}
-        toggled={toggled}
-        handleToggleSidebar={handleToggleSidebar}
-        handleCollapsedChange={handleCollapsedChange}
-      />
-      <main>
-        <div className='btn-toggle' onClick={() => handleToggleSidebar(true)}>
-          <FaBars />
-        </div>
-        <Switch>
-          {routes.map((route, idx) => {
-            return route.component ? (
-              <Route
-                key={idx}
-                path={route.path}
-                exact={route.exact}
-                name={route.name}
-                render={(props) => (
-                  <route.component
-                    {...props}
-                  />
-                )}
-              />
-            ) : null;
-          })}
-        </Switch>
-      </main>
-    </div>
+    // <div className={`app ${toggled ? 'toggled' : ''}`}>
+    //   <Sidebar
+    //     collapsed={collapsed}
+    //     toggled={toggled}
+    //     handleToggleSidebar={handleToggleSidebar}
+    //     handleCollapsedChange={handleCollapsedChange}
+    //   />
+    //   <main>
+    //     <div className='btn-toggle' onClick={() => handleToggleSidebar(true)}>
+    //       <FaBars />
+    //     </div>
+    //     <Switch>
+    //       {routes.map((route, idx) => {
+    //         return route.component ? (
+    //           <Route
+    //             key={idx}
+    //             path={route.path}
+    //             exact={route.exact}
+    //             name={route.name}
+    //             render={(props) => (
+    //               <route.component
+    //                 {...props}
+    //               />
+    //             )}
+    //           />
+    //         ) : null;
+    //       })}
+    //     </Switch>
+    //   </main>
+    // </div>
+    // <MainLayout/>
+      <Switch>
+        <Route path="/signup" component={SignUp} />
+      </Switch>
   );
 }
 
