@@ -1,22 +1,12 @@
-import React, { useState } from "react";
-import { Route, Router, Switch } from 'react-router-dom';
-
+import React from "react";
+import { Route, Switch } from 'react-router-dom';
 import "../node_modules/draft-js/dist/Draft.css";
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './views/styles.scss';
 import SignUp from "./views/signUp";
 
 function App() {
-  const [collapsed, setCollapsed] = useState(false);
-  const [toggled, setToggled] = useState(false);
-
-  const handleCollapsedChange = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const handleToggleSidebar = (value) => {
-    setToggled(value);
-  };
+ 
 
   return (
     // <div className={`app ${toggled ? 'toggled' : ''}`}>
