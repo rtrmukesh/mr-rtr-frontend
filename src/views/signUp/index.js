@@ -4,14 +4,21 @@ import Text from '../../components/Text';
 import Password from '../../components/Password';
 import SaveButton from '../../components/SaveButton';
 import { validateStrongPassword } from '../../lib/Helper';
+import { useDispatch } from "react-redux";
+import LoginService from "../../services/LoginService";
 
 function SignUp(props) {
+
   let { history } = props;
+
   const [strongPasswordError, setStrongPasswordError] = useState('');
   const [isNewPassword, setIsNewPassword] = useState();
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [isConfirmPassword, setIsConfirmPassword] = useState();
 
+  const dispatch = useDispatch()
+
+  
   const handleNewPasswordChange = (e) => {
     const newPassword = e.values.newPassword;
     const confirmPassword = e.values.confirmPassword;
@@ -61,6 +68,23 @@ function SignUp(props) {
     }
   };
 
+  const handleSubmit = async (values) => {
+    let data = new FormData();
+
+    data.append('name', values && values?.name ? values?.name : '');
+    data.append('email', values && values?.email ? values?.email : '');
+    data.append(
+      'newPassword',
+      values && values?.newPassword ? values?.newPassword : ''
+    );
+    data.append(
+      'confirmPassword',
+      values && values?.confirmPassword ? values?.confirmPassword : ''
+    );
+    // dispatch(await LoginService.signUp(data, (res) => {}));
+
+  };
+
   const initialValues = {
     name: '',
     newPassword: '',
@@ -87,7 +111,7 @@ function SignUp(props) {
                   <Form
                     initialValues={initialValues}
                     enableReinitialize
-                    onSubmit={{}}
+                    onSubmit={handleSubmit}
                   >
                     <h2 class='text-uppercase text-center mb-5'>
                       Create an account
@@ -108,7 +132,7 @@ function SignUp(props) {
                       name='confirmPassword'
                       label='Confirm Password'
                       onInputChange={(e) => {
-                        handleNewPasswordChange(e);
+                        handlePasswordChange(e);
                       }}
                       error={confirmPasswordError}
                       required
