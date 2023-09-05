@@ -1,6 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Form from '../../components/Form';
+import Text from '../../components/Text';
+import Password from '../../components/Password';
+import SaveButton from '../../components/SaveButton';
+import { validateStrongPassword } from '../../lib/Helper';
 
-function SignUp() {
+function SignUp(props) {
+  let { history } = props;
+  const [strongPasswordError, setStrongPasswordError] = useState('');
+  const [isNewPassword, setIsNewPassword] = useState();
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isConfirmPassword, setIsConfirmPassword] = useState();
+
+  const handleNewPasswordChange = (e) => {
+    const newPassword = e.values.newPassword;
+    const confirmPassword = e.values.confirmPassword;
+    setIsNewPassword(newPassword);
+    const strongPassword = validateStrongPassword(newPassword);
+    if (strongPassword) {
+      setStrongPasswordError(strongPassword);
+    } else if (newPassword && !confirmPassword) {
+      setConfirmPasswordError('Confirm password is required');
+    } else if (
+      newPassword &&
+      confirmPassword &&
+      newPassword !== confirmPassword
+    ) {
+      setConfirmPasswordError('Confirm password did not match');
+    }
+    if (strongPassword === undefined) {
+      setStrongPasswordError('');
+    }
+    if (newPassword === confirmPassword) {
+      setConfirmPasswordError('');
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = isNewPassword;
+    const confirmPassword = e && e.values && e.values.confirmPassword;
+    setIsConfirmPassword(confirmPassword);
+
+    const strongPassword = validateStrongPassword(newPassword);
+    if (strongPassword) {
+      setStrongPasswordError(strongPassword);
+    } else if (newPassword && !confirmPassword) {
+      setConfirmPasswordError('Confirm password is required');
+    } else if (
+      newPassword &&
+      confirmPassword &&
+      newPassword !== confirmPassword
+    ) {
+      setConfirmPasswordError('Confirm password did not match');
+    }
+    if (strongPassword === undefined) {
+      setStrongPasswordError('');
+    }
+    if (newPassword === confirmPassword) {
+      setConfirmPasswordError('');
+    }
+  };
+
+  const initialValues = {
+    name: '',
+    newPassword: '',
+    confirmPassword: '',
+    email: '',
+  };
+
   return (
     <div>
       <section
@@ -12,9 +79,45 @@ function SignUp() {
         <div class='mask d-flex align-items-center h-100 gradient-custom-3'>
           <div class='container h-100'>
             <div class='row d-flex justify-content-center align-items-center h-100'>
-              <div class='col-12 col-md-9 col-lg-7 col-xl-6' style={{padding:"25px"}}>
-                <div class='card' style={{ borderRadius: '15px' }}>
-                  <div class='card-body p-5'>
+              <div
+                class='col-12 col-md-9 col-lg-7 col-xl-6'
+                style={{ padding: '25px' }}
+              >
+                <div class='card card-body' style={{ borderRadius: '15px' }}>
+                  <Form
+                    initialValues={initialValues}
+                    enableReinitialize
+                    onSubmit={{}}
+                  >
+                    <h2 class='text-uppercase text-center mb-5'>
+                      Create an account
+                    </h2>
+
+                    <Text name='name' label='Name' required />
+                    <Text name='email' label='Email' required />
+                    <Password
+                      name='newPassword'
+                      label='Password'
+                      onInputChange={(e) => {
+                        handleNewPasswordChange(e);
+                      }}
+                      error={strongPasswordError}
+                      required
+                    />
+                    <Password
+                      name='confirmPassword'
+                      label='Confirm Password'
+                      onInputChange={(e) => {
+                        handleNewPasswordChange(e);
+                      }}
+                      error={confirmPasswordError}
+                      required
+                    />
+                    <div className='align-center d-flex justify-content-center'>
+                      <SaveButton label='SignUp' className='bg-primary' />
+                    </div>
+                  </Form>
+                  {/* <div class='card-body p-5'>
                     <h2 class='text-uppercase text-center mb-5'>
                       Create an account
                     </h2>
@@ -95,7 +198,7 @@ function SignUp() {
                         </a>
                       </p>
                     </form>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
