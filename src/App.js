@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch } from 'react-router-dom';
-import "../node_modules/draft-js/dist/Draft.css";
-import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css';
 import './views/styles.scss';
 import SignUp from "./views/signUp";
 

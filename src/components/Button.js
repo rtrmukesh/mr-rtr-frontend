@@ -5,7 +5,7 @@ class Button extends React.Component {
   state = {
     color: this.props.color || "",
     minWidth: this.props.minWidth || "",
-    maxWidth: this.props.color || "",
+    maxWidth: this.props.maxWidth || "",
   };
 
   hoverIn = () => {
@@ -33,6 +33,7 @@ class Button extends React.Component {
       fontSize,
       align,
       ticketCreate,
+      loadingLabel
     } = this.props;
 
     return (
@@ -49,8 +50,8 @@ class Button extends React.Component {
         style={{
           backgroundColor: this.state.color,
           borderColor: this.state.color,
-          minWidth:this.state.minWidth,
-          maxWidth:this.state.maxWidth,
+          minWidth: this.state.minWidth,
+          maxWidth: this.state.maxWidth,
         }}
         onMouseEnter={this.hoverIn}
         onMouseLeave={this.hoverOut}
@@ -78,10 +79,10 @@ class Button extends React.Component {
               <i className=" pr-1" />
             )}
             {ticketCreate ? (
-              <span className="add-button">{label}</span>
+              <span className="add-button">{disabled ? loadingLabel : label}</span>
             ) : (
-              <span className="add-button">{label}</span>
-              
+              <span className="add-button">{disabled ? loadingLabel : label}</span>
+
             )}
           </span>
         )}
