@@ -4,8 +4,9 @@ import Text from '../../components/Text';
 import Password from '../../components/Password';
 import SaveButton from '../../components/SaveButton';
 import { validateStrongPassword } from '../../lib/Helper';
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import LoginService from "../../services/LoginService";
+import axios from "axios";
 
 function SignUp(props) {
 
@@ -16,7 +17,7 @@ function SignUp(props) {
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [isConfirmPassword, setIsConfirmPassword] = useState();
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   
   const handleNewPasswordChange = (e) => {
@@ -68,6 +69,7 @@ function SignUp(props) {
     }
   };
 
+
   const handleSubmit = async (values) => {
     let data = new FormData();
 
@@ -81,6 +83,9 @@ function SignUp(props) {
       'confirmPassword',
       values && values?.confirmPassword ? values?.confirmPassword : ''
     );
+
+    const response = await axios.post('http://localhost:3002/v1/user/signup',data);
+console.log('response >>>----------------------------->',response);
     // dispatch(await LoginService.signUp(data, (res) => {}));
 
   };
