@@ -76,7 +76,7 @@ const SelectDropdown = (props) => {
 
   const onClick = (e) => {
      e.target.focus();
-     disabled?disabled:toggle();
+     disabled?disabled():toggle();
      onFocus && onFocus();
   }
 

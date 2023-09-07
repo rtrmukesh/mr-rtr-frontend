@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css';
+import '../node_modules/react-toastify/dist/ReactToastify.css';
 import './views/styles.scss';
-import SignUp from "./views/signUp";
+import SignUp from './views/signUp';
+import ToastContainer from './components/ToastContainer';
+import LoginPage from './views/logIn';
 
-function App() {
- 
+function App(props) {
 
   return (
     // <div className={`app ${toggled ? 'toggled' : ''}`}>
@@ -39,9 +41,18 @@ function App() {
     //   </main>
     // </div>
     // <MainLayout/>
+    <>
+      <ToastContainer
+        autoClose={4000}
+        pauseOnHover={false}
+        toastClassName='toastRequestSuccess'
+        bodyClassName='toastBody'
+      />
       <Switch>
-        <Route path="/signup" component={SignUp} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/login' component={LoginPage} />
       </Switch>
+    </>
   );
 }
 

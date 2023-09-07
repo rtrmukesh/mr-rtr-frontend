@@ -18,7 +18,7 @@ class SaveButton extends React.Component {
     }
   }
   render() {
-    const { onClick, loading, fontSize, className, align, isClicked, id, type, label, minWidth } =
+    const { onClick, loading, fontSize, className, align, isClicked, id, type, label, minWidth, maxWidth } =
       this.props;
 
     const { showLoader } = this.state;
@@ -34,6 +34,7 @@ class SaveButton extends React.Component {
           borderRadius: "7px",
           minWidth:minWidth ? minWidth: "90px",
           fontSize: fontSize ? fontSize: ".875rem",
+          maxWidth: maxWidth,
           lineHeight: "1.25rem",
           padding: ".5rem 1.25rem",
         }}

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Form from '../../components/Form';
-import Text from '../../components/Text';
 import Password from '../../components/Password';
 import SaveButton from '../../components/SaveButton';
+import Text from '../../components/Text';
 import { validateStrongPassword } from '../../lib/Helper';
 // import { useDispatch } from "react-redux";
-import LoginService from "../../services/LoginService";
-import axios from "axios";
+import axios from 'axios';
+import Toast from '../../components/Toast';
+import { isBadRequest } from '../../lib/Http';
 
 function SignUp(props) {
-
   let { history } = props;
 
   const [strongPasswordError, setStrongPasswordError] = useState('');
@@ -17,9 +17,7 @@ function SignUp(props) {
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [isConfirmPassword, setIsConfirmPassword] = useState();
 
-  // const dispatch = useDispatch()
 
-  
   const handleNewPasswordChange = (e) => {
     const newPassword = e.values.newPassword;
     const confirmPassword = e.values.confirmPassword;
@@ -69,7 +67,6 @@ function SignUp(props) {
     }
   };
 
-
   const handleSubmit = async (values) => {
     let data = new FormData();
 
@@ -84,10 +81,26 @@ function SignUp(props) {
       values && values?.confirmPassword ? values?.confirmPassword : ''
     );
 
-    const response = await axios.post('http://localhost:3002/v1/user/signup',data);
-console.log('response >>>----------------------------->',response);
-    // dispatch(await LoginService.signUp(data, (res) => {}));
-
+    await axios
+      .post('http://localhost:3002/v1/user/signup', data)
+      .then((response) => {
+        let successMessage;
+        if (response && response.data) {
+          successMessage = response.data.message;
+          Toast.success(successMessage);
+        }
+      })
+      .catch((error) => {
+        if (isBadRequest(error)) {
+          let errorMessage;
+          const errorRequest = error.response.request;
+          if (errorRequest && errorRequest.response) {
+            errorMessage = JSON.parse(errorRequest.response).message;
+          }
+          Toast.error(errorMessage);
+          console.error(errorMessage);
+        }
+      });
   };
 
   const initialValues = {

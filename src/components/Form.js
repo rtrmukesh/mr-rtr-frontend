@@ -11,11 +11,13 @@ class Form extends React.Component {
       children,
       onReset,
       id,
+      className
     } = this.props;
 
     return (
 
       <div 
+      className={className}
         style={{width:this?.props?.width ? this.props.width:""}}>
       <Formik
         id={id || children}
