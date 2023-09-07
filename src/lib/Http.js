@@ -1,6 +1,3 @@
-import { HttpStatus } from "../helpers/HttpStatus";
-
-//get response request
 export function getResponseMessage(response) {
   if (response && response.data) {
     return response.data.message;
@@ -10,7 +7,7 @@ export function getResponseMessage(response) {
 //bad request function
 
 export function isBadRequest(error) {
-  return error.response && error.response.status >= HttpStatus.BAD_REQUEST;
+  return error.response && error.response.status >= 400;
 }
 
 // error message  funcion
