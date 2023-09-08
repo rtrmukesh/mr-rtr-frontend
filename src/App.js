@@ -1,57 +1,42 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css';
-import '../node_modules/react-toastify/dist/ReactToastify.css';
-import './views/styles.scss';
-import SignUp from './views/signUp';
-import ToastContainer from './components/ToastContainer';
-import LoginPage from './views/logIn';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import "../node_modules/@fortawesome/fontawesome-svg-core/styles.css";
+import "../node_modules/react-toastify/dist/ReactToastify.css";
+import ToastContainer from "./components/ToastContainer";
+import { COOKIE_SESSION_TOKEN } from "./lib/Cookie";
+import Cookie from "./lib/Helper";
+import MainLayout from "./views/layout/mainLayout";
+import LoginPage from "./views/logIn";
+import SignUp from "./views/signUp";
+import "./views/styles.scss";
 
 function App(props) {
+  let session_token = Cookie.get(COOKIE_SESSION_TOKEN) || null;
+
+  const currentPath = window.location.pathname + window.location.search;
+  
+  if (currentPath == "/") {
+    let url = Cookie.get(COOKIE_SESSION_TOKEN) ? "/dashboard" : "/login";
+    const startPageUrl = url;
+    window.location.replace(startPageUrl);
+  }
 
   return (
-    // <div className={`app ${toggled ? 'toggled' : ''}`}>
-    //   <Sidebar
-    //     collapsed={collapsed}
-    //     toggled={toggled}
-    //     handleToggleSidebar={handleToggleSidebar}
-    //     handleCollapsedChange={handleCollapsedChange}
-    //   />
-    //   <main>
-    //     <div className='btn-toggle' onClick={() => handleToggleSidebar(true)}>
-    //       <FaBars />
-    //     </div>
-    //     <Switch>
-    //       {routes.map((route, idx) => {
-    //         return route.component ? (
-    //           <Route
-    //             key={idx}
-    //             path={route.path}
-    //             exact={route.exact}
-    //             name={route.name}
-    //             render={(props) => (
-    //               <route.component
-    //                 {...props}
-    //               />
-    //             )}
-    //           />
-    //         ) : null;
-    //       })}
-    //     </Switch>
-    //   </main>
-    // </div>
-    // <MainLayout/>
     <>
       <ToastContainer
         autoClose={4000}
         pauseOnHover={false}
-        toastClassName='toastRequestSuccess'
-        bodyClassName='toastBody'
+        toastClassName="toastRequestSuccess"
+        bodyClassName="toastBody"
       />
-      <Switch>
-        <Route path='/signup' component={SignUp} />
-        <Route path='/login' component={LoginPage} />
-      </Switch>
+      {session_token ? (
+        <MainLayout />
+      ) : (
+        <Switch>
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={LoginPage} />
+        </Switch>
+      )}
     </>
   );
 }
