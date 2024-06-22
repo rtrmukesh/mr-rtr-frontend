@@ -3,28 +3,36 @@ import {
   FaAngleDoubleRight,
   FaGem,
   FaTachometerAlt,
-  FaUser
-} from 'react-icons/fa';
+  FaUser,
+} from "react-icons/fa";
 import {
   Menu,
   MenuItem,
   ProSidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader
-} from 'react-pro-sidebar';
-import { Link, NavLink } from 'react-router-dom';
+  SidebarHeader,
+} from "react-pro-sidebar";
+import { Link, NavLink } from "react-router-dom";
+import AnimationButton from "../../components/MyComponents/AnimationButton";
+import { isLoggedIn, setCookie } from "../../lib/Helper";
+import { COOKIE_SESSION_TOKEN } from "../../lib/Cookie";
 
 const Sidebar = ({
   image,
   collapsed,
   toggled,
   handleToggleSidebar,
-  handleCollapsedChange
+  handleCollapsedChange,
 }) => {
+  const handleLogOut = () => {
+    setCookie(COOKIE_SESSION_TOKEN, "");
+    isLoggedIn();
+  };
+
   return (
     <ProSidebar
-    //   image={image ? sidebarBg : false}
+      //   image={image ? sidebarBg : false}
       collapsed={collapsed}
       toggled={toggled}
       onToggle={handleToggleSidebar}
@@ -45,14 +53,14 @@ const Sidebar = ({
             >
               <div
                 style={{
-                  padding: '9px',
-                  textTransform: 'uppercase',
-                  fontWeight: 'bold',
+                  padding: "9px",
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
                   fontSize: 15,
-                  letterSpacing: '1px'
+                  letterSpacing: "1px",
                 }}
               >
-                Pro Sidebar
+                Menus
               </div>
             </MenuItem>
           )}
@@ -75,25 +83,26 @@ const Sidebar = ({
             Components <Link to="/components" />
           </MenuItem>
           <MenuItem icon={<FaGem />}>
-          Login <Link to="/login" />
+            Login <Link to="/login" />
           </MenuItem>
         </Menu>
       </SidebarContent>
       {/* Footer */}
-      <SidebarFooter style={{ textAlign: 'center' }}>
-        <div className="sidebar-btn-wrapper" style={{ padding: '16px' }}>
+      <SidebarFooter style={{ textAlign: "center" }}>
+        <div className="sidebar-btn-wrapper" style={{ padding: "16px" }}>
           <Link
             className="sidebar-btn"
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             to="/profile"
           >
             <FaUser />
             <span>My Account</span>
           </Link>
         </div>
+        <AnimationButton label="Logout" onClick={handleLogOut} />
       </SidebarFooter>
     </ProSidebar>
-  ); 
+  );
 };
- 
+
 export default Sidebar;
