@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import Form from "../../components/Form";
 import Text from "../../components/Text";
 import Password from "../../components/Password";

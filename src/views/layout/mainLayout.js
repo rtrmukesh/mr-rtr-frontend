@@ -2,7 +2,7 @@ import React from "react";
 import routes from '../../routes';
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom'; // Updated import
 import Sidebar from '../../views/sidBar/sidBar';
 import '../../views/styles.scss';
 
@@ -30,23 +30,18 @@ function MainLayout(props) {
         <div className='btn-toggle' onClick={() => handleToggleSidebar(true)}>
           <FaBars />
         </div>
-        <Switch>
+        <Routes> {/* Updated to Routes */}
           {routes.map((route, idx) => {
             return route.component ? (
               <Route
                 key={idx}
                 path={route.path}
                 exact={route.exact}
-                name={route.name}
-                render={(props) => (
-                  <route.component
-                    {...props}
-                  />
-                )}
+                element={<route.component />} // Use element instead of render
               />
             ) : null;
           })}
-        </Switch>
+        </Routes>
       </main>
     </div>
   );
